@@ -1,1898 +1,761 @@
 
-# 用户相关接口
-
-## **1\. 管理员登录 login**
-
-### 名称
-> 管理员登录接口
-
-### URL（只是个例子——路径的V1表示第一个版本）
-> [http://api.local.com/v1/users/login](http://api.local.com/v1/users/login)
-
-
-### 请求方式：`get`
-### 支持格式:`json`
-
-- ### 请求参数
-	|  参数名称     |   类型     |    必填    |  说明     |
-	|   ----       |  :----:   |  :----:   |  :----:     |
-	|   user_name   |   string  |    N      |  用户名    |
-	|   password    |  string   |    N      |  密码      |
-
-- ### 响应内容：
-
-	|   参数名称        |   类型      | 说明  |
-	|   ----           |   :----:   | ----  |
-	|   coede          |   string   |   返回码    |
-	|   message        |   string   |   提示信息    |
-	|   token          |   string   |   用户登录令牌，用于标识唯一登录者    |
-
-
-
-- ### JSON响应示例：
-	- #### 正确示例：
-		```json
-		{
-			"response":{
-       			"code":"20000",
-				"token":"RVBNIOKJIHIIIJ",
-				"message":"登录成功"
-			}
-		}
-		```
-
-	- #### 错误示例:
-		```json
-		{
-			"response":{
-				"code":"50001",
-				"message":"用户名不存在"
-			}
-		}
-		```
-
-	- #### 错误示例
-		```json
-		{
-			"response":{
-				"code":"50002",
-				"message":"用户名正确、密码错误"
-			}
-		}  
-		```
-
-
-
-## **2\. 管理员退出登录 logout**
-### 名称
-> 管理员退出登录
-
-###  URL（只是个例子）
->[http://api.local.com/v1/users/logout](http://api.local.com/v1/users/logout)
-
-
-### 请求方式：`post`
-### 支持格式：·json·
-
-- ### 请求参数
-
-	|  参数名称     |   类型   |    必填    |  说明     |
-	|   ----       |  :----:  |  :----:   |  :----:     |
-	|   token   |   string  |   N    |  用户登录令牌，用于标识唯一登录者  |
-
-
-- ### 响应内容：
-
-	|   参数名称     |   类型     | 说明  |
-	|   ----        |   :----:   | ----  |
-	|   coede       |   string   |   返回码    |
-	|   message     |   string   |   提示信息    |
-
-
-- ### JSON响应示例：
-	- #### 正确示例：
-
-		```json
-		{
-			"response":{
-			"code":"20000",
-			"message":"成功退出"
-		}
-		```
-	- #### 错误示例：
-		```json
-		{
-
-		}
-		```
-
-
-
-## **3\. 获取管理员信息get_user_info(忽略,不是重点)**
-### 名称
-> 获取管理员信息
-
-###  URL（只是个例子）
->[http://api.local.com/v1/users/get_user_info](http://api.local.com/v1/users/get_user_info)
-
-
-### 支持格式:`json`
-### 请求方法：`get`
-
-
-- ### 请求参数
-	|  参数名称 |   类型    |    必填    |  说明     |
-	|   ----   |  :----:   |  :----:   |  :----:     |
-	|   token  |   string  |    N      |   用户登录令牌，用于标识唯一登录者   |
-
-- ### 响应内容：
-
-	|   参数名称        |   类型      | 说明  |
-	|   ----           |   :----:   | ----  |
-	|   code            |   string   |  返回码   |
-	|   message        |   string   |  提示信息   |
-
-
-
-- ### JSON响应示例：
-	- #### 正确示例：
-		```json
-		{
-			"response":{
-				"code":"20000",
-				"message":"获取管理员信息成功"
-			}
-		}
-		```
-
-
-
-## **4\. 修改管理员密码change_password**
-### 名称
-> 修改管理员密码
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/users/change_password](http://api.local.com/v1/users/change_password)
-
-
-
-
-
-### 请求方式：`post`
-### 支持格式:`json`
-
-- ### 请求参数
-	|  参数名称        |   类型     |    必填    |  说明     |
-	|   ----          |  :----:   |  :----:   |  :----:     |
-	|   old_password  |   string  |    y     |  旧密码    |
-	|   new_password  |  string   |    y      |  新密码      |
-
-- ### 响应内容：
-
-	|   参数名称        |   类型      | 说明  |
-	|   ----           |   :----:   | ----  |
-	|   coede          |   string   |   返回码    |
-	|   message        |   string   |   提示信息    |
-
-
-
-
-- ### JSON响应示例：
-	- #### 正确示例：
-		```json
-		{
-			"response":{
-				"code":"20000",
-				"message":"旧密码正确，新密码修改成功"
-			}
-		}
-		```
-	- #### 错误示例：
-		```json
-		{
-			"response":{
-				"code":"50003",
-				"message":"旧密码错误"
-			}
-		}
-		```
-
-
-
-
-
-
-## **5\. 检查账号是否登陆过check_login:(可以不急着做,这是容错的内容)**
-### 名称
-> 检查是否登录
-
-###  内容略
-
-
-
-
-
-# ***基础数据管理***
-
-## **6\. 导入竞赛活动信息upload_excel（导入excel)**
-### 名称
-> 导入竞赛活动信息
-
-###  URL（只是个例子）
->  [http://api.local.com/v1/upload/upload_excel](http://api.local.com/v1/upload/upload_excel)
-
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-file
+# RESTful API 接口设计文档
+
+<!-- TOC -->
+
+- [RESTful API 接口设计文档](#restful-api-接口设计文档)
+    - [用户接口](#用户接口)
+        - [**1\. 用户登录界面**](#1\-用户登录界面)
+        - [**2\. 管理员退出登录 logout**](#2\-管理员退出登录-logout)
+        - [3.用户修改密码  change_password](#3用户修改密码--change_password)
+    - [竞赛数据模块接口](#竞赛数据模块接口)
+        - [导入竞赛信息 upload_excel（导入excel)](#导入竞赛信息-upload_excel导入excel)
+    - [活动数据详情页](#活动数据详情页)
+        - [按年份获取竞赛信息 search_activities_by_year](#按年份获取竞赛信息-search_activities_by_year)
+    - [学生数据模块_首页](#学生数据模块_首页)
+        - [获取学生参赛统计信息get_students_competitions_data_list](#获取学生参赛统计信息get_students_competitions_data_list)
+    - [学生数据第一版块-个人数据详情页面](#学生数据第一版块-个人数据详情页面)
+        - [获取学生个人竞赛信息 search_student_personal_details_by_id](#获取学生个人竞赛信息-search_student_personal_details_by_id)
+    - [数据统计可视化](#数据统计可视化)
+        - [获取学生竞赛/获奖视图](#获取学生竞赛获奖视图)
+    - [学校数据接口](#学校数据接口)
+        - [获取学校参与竞赛的数据 get_schools_competition_data_list**](#获取学校参与竞赛的数据-get_schools_competition_data_list)
+    - [平台数据接口](#平台数据接口)
+        - [获取平台历年数据  get_platform_total_data**](#获取平台历年数据--get_platform_total_data)
+        - [获取年度对比数据 search_platform_data_between_years](#获取年度对比数据-search_platform_data_between_years)
+    - [API 错误码](#api-错误码)
+
+<!-- /TOC -->
+
+## 用户接口
+
+### **1\. 用户登录界面**
+
+接口地址：`http://hostname/user/Login/login`  
+支持格式：`json`  
+请求方法：*`GET`*  
+请求示例：
+
+```url
+http://hostname/user/Login/login/user_name/Maverick/password/123
 ```
 
-### 请求方式：`post`
-### 支持格式:`json`
+- 请求参数：
 
-- ### 请求参数
-	|  参数名称     |   类型     |    必填    |  说明     |
-	|   ----       |  :----:   |  :----:   |  :----:     |
-	|   file   		| 文件    |    N      |  用户名    |
-	
+|  参数名称     |   类型     |    必填    |  说明            |
+|   ----       |  :----:   |  :----:   |  :----:          |
+|   user_name   |   string  |    N      |  用户名       |
+|   password    |  string   |    N      |  密码      |
 
-- ### 响应内容：
+- 响应内容：
 
-	|   参数名称        |   类型      | 说明  |
-	|   ----           |   :----:   | ----  |
-	|   coede          |   string   |   返回码    |
-	|   message        |   string   |   提示信息    |
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   token          |   string   |   用户登录令牌，用于标识唯一登录者    |
 
+- JSON响应示例：
+  - 正确示例：
 
+    ```json
+    {
+        "response": {
+            "code": "20000",
+            "messsage": "登陆成功",
+            "data": {
+                "token":"RVBNIOKJIHIIIJ"
+            }
+        }
+    }
+    ```
 
+  - 错误示例：
 
-- ### JSON响应示例：
-	- #### 正确示例：
-		```json
-		{
-			"response":{
-				"code":"20000",
-				"message":"文件导入成功"
-			}
-		}
-		```
+    ```json
+    {
+        "response": {
+            "code": "50001",
+            "messsage": "用户名不存在"
+        }
+    }
+    ```
 
-	- #### 错误示例：
-		```json
-		{
-			"response":{
-				"code":"50001",
-				"message":"文件导入失败"
-			}
-		}
-		```
+     ```json
+    {
+        "response": {
+            "code": "50002",
+            "messsage": "密码错误"
+        }
+    }
+    ```
 
+### **2\. 管理员退出登录 logout**
 
+接口地址：`http://hostname/user/Login/logout`  
+支持格式：`json`  
+请求方法：*`DELETE`*  
+请求示例：
 
-# 活动数据详情页
+```url
+http://hostname/user/Login/logout/token/AJKDJSLN
+```
+
+- 请求参数
+|  参数名称     |   类型  |    必填   |  说明     |
+|   ----       |  :----: |  :----:  |  :----:     |
+|   token   |  string   |    y    |  用户登录令牌，用于标识唯一登录者    |
+
+- 响应内容：
+
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   coede          |   string   |   返回码    |
+|   message        |   string   |   提示信息    |
+
+- JSON响应示例：
+  - 正确示例：
+
+    ```json
+    {
+        "response":{
+            "code":"20000",
+             "message":"成功退出"
+    }
+    ```
+
+  - 错误示例：
+
+    ```json
+    {
+
+    }
+    ```
+
+### 3.用户修改密码  change_password
+
+接口地址：` http://hostname/user/Login/password `  
+支持格式：`json`  
+请求方法：*`POST`*  
+请求示例：
+
+```url
+http://hostname/user/Login/old_pswd/123456/new_password/123123/token/AJKDJSLN
+```
+
+- 请求参数
+
+|  参数名称    |   类型    |    必填    |  说明     |
+|   ----      |  :----:   |  :----:   |  :----:     |
+| old_pswd    |   string  |    y     |  旧密码    |
+| new_pswd    |  string   |    y      |  新密码      |
+| token       |  string   |    y      | 用户登录令牌，用于标识唯一登录者      |
+
+- 响应内容：
+
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   coede          |   string   |   返回码    |
+|   message        |   string   |   提示信息    |
+
+- JSON响应示例：
+  - 正确示例：
+
+    ```json
+    {
+        "response":{
+            "code":"20000",
+            "message":"旧密码正确，新密码修改成功"
+        }
+    }
+    ```
+
+  - 错误示例：
+
+    ```json
+    {
+        "response":{
+            "code":"50003",
+            "message":"旧密码错误"
+        }
+    }
+    ```
+
+## 竞赛数据模块接口
+
+### 导入竞赛信息 upload_excel（导入excel)
+
+接口地址：`http://hostname/user/competition/excel`  
+支持格式：`json`  
+请求方法：*`POST`*  
+请求示例：
+
+```url
+暂无
+```
+
+- 请求参数：
+
+|  参数名称     |   类型     |    必填    |  说明            |
+|   ----       |  :----:   |  :----:   |  :----:          |
+|   file  |   type  |    y      |  excell文件       |
+
+- 响应内容：
+
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   coede          |   string   |   返回码    |
+|   message        |   string   |   提示信息    |
+
+- JSON响应示例：
+  - 正确示例：
+
+    ```json
+    {
+        "response":{
+            "code":"20000",
+             "message":"文件导入成功"
+        }
+    }
+    ```
+
+  - 错误示例：
+
+    ```json
+    {
+        "response":{
+            "code":"50004",
+            "message":"文件导入失败"
+        }
+    }
+    ```
+
+## 活动数据详情页
 
 <img src="https://s1.ax1x.com/2020/06/19/NumLzd.png" />
 
-## **7\. 按年份搜索该年全部活动数据search_activities_by_year**
-### 名称
-> 按年份搜索活动数据
+### 按年份获取竞赛信息 search_activities_by_year
 
-###  URL（只是个例子）
-> [http://api.local.com/v1/activities/search_activities_by_year](http://api.local.com/v1/activities/search_activities_by_year)
+接口地址：`http://hostname/user/competition/info`  
+支持格式：`json`  
+请求方法：*`GET`*  
+请求示例：
 
+```url
+http://hostname/user/competition/info
+http://hostname/user/competition/info/year/2020
 
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{
-	"year":"2020"
-}
+http://hostname/user/competition/info/keyword/机器人
+http://hostname/user/competition/info/year/2020/keyword/传媒大奖赛
 ```
 
+- 请求参数：
 
+|  参数名称   |   类型     |    必填    |  说明     |
+|   ----     |  :----:   |  :----:   |  :----:     |
+|   year     |   string  |    y      |  活动举办年份    |
 
-### 正确返回格式
-```
-{
-	"response":{
-		"code":"20000",
-        "activities_data":[
+- 响应内容：
+
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   coede          |   string   |   返回码    |
+|   message        |   string   |   提示信息    |
+|   data       |   array  |   信息相关数组    |
+
+- JSON响应示例：
+  - 正确示例：
+
+    ```json
+    {
+    "response": {
+        "code": "20000",
+        "message": "活动数据：按年份获取竞赛信息 成功",
+        "data": [
             {
-                "activity_name":"中学线上运动会",
-		        "year":"2020",
-	    	    status":"进行中",
-		        "held_time":[{
-			        "start_time":"2020.06.03",
-			        "end_time":"2020.06.03"
-		    	}],
-		        "activity_type":"线上比赛",
-		        "project_content":[
-			        "俯卧撑",
-			        "仰卧起坐",
-			        "引体向上"
-			    ],
-		        "total_people_num":"130",
-	    	    "total_boys_num":"80",
-		        "total_girls_num":"50"
+                "name": "",
+                "year": "",
+                "status": "",
+                "hold_time": [
+                    "",
+                    ""
+                ],
+                "type": "",
+                "event": [
+                    "俯卧撑",
+                    "仰卧起坐"
+                ],
+                "num_total": 12,
+                "num_male": 21,
+                "num_female": 2
             },
             {
-                "activity_name":"中学生趣味运动会",
-		        "year":"2020",
-	    	    status":"进行中",
-		        "held_time":[{
-						"start_time":"2020.06.05",
-						"end_time":"2020.06.05"
-		    	}],
-		        "activity_type":"线下比赛",
-		        "project_content":[
-			        "两人三足",
-			        "接力运球",
-			    	"跳长绳"
-				],
-		        "total_people_num":"186",
-	    	    "total_boys_num":"100",
-		        "total_girls_num":"86"
+                "name": "",
+                "year": "",
+                "status": "",
+                "hold_time": [
+                    "",
+                    ""
+                ],
+                "type": "",
+                "event": [
+                    "俯卧撑",
+                    "仰卧起坐"
+                ],
+                "num_total": 12,
+                "num_male": 21,
+                "num_female": 22
             }
-    	],
-		"message":"活动数据页面:按年份搜索该年全部活动数据 成功"
-	}
-}
-```
+        ]
+    }
+    }
+    ```
 
+  - 错误示例：
 
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"活动数据页面:按年份搜索该年全部活动数据 失败"
-	}
-} 
-```
+    ```json
+    {
+        "response":{
+            "code":"50005",
+             "message":"活动数据页面:按年份搜索竞赛信息 失败"
+        }
+    }
+    ```
 
-### 返回信息说明
-```
-{
-	"activity_name":"活动名称"
-	"year":"活动举办年份",
-	status":"活动状态（进行中、已结束、未开始）",
-	"held_time":
-	[
-		{
-			"开始时间":"2020.06.03",
-			"结束时间":"2020.06.03"
-		}
-	],
-	"activity_type":"活动类别（线上比赛、线下比赛）",
-	"project_content":"包含项目",
-	"total_people_num":"总人数",
-	"total_boys_num":"男生人数",
-	"total_girls_num":"女生人数"
-}
-```
+## 学生数据模块_首页
 
-
-
-## **8\. 按全字段关键字搜索活动search_activities_by_keyword**
-### 名称
-> 按全字段关键字搜索活动
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/activities/search_activities_by_keyword](http://api.local.com/v1/activities/search_activities_by_keyword)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-##### （关键字,可以是活动名称,状态,活动类别,比赛项目,举办时间  中任意一个 ）
-
-```
-{
-	"keyword":"中学线上运动会"
-}
-```
-
-
-
-### 正确返回格式
-```
-{
-	"response":{
-		"code":"20000",
-		"activities_data":
-		[
-            {
-                "activity_name":"中学线上运动会",
-		        "year":"2020",
-	    	    status":"进行中",
-		        "held_time":[{
-			        "start_time":"2020.06.03",
-			        "end_time":"2020.06.03"
-		    	}],
-		        "activity_type":"线上比赛",
-		        "project_content":[
-			        "俯卧撑",
-			        "仰卧起坐",
-			        "引体向上"
-			    ],
-		        "total_people_num":"130",
-	    	    "total_boys_num":"80",
-		        "total_girls_num":"50"
-            },
-            {
-                "activity_name":"中学生趣味运动会",
-		        "year":"2020",
-	    	    status":"进行中",
-		        "held_time":[{
-						"start_time":"2020.06.05",
-						"end_time":"2020.06.05"
-		    	}],
-		        "activity_type":"线下比赛",
-		        "project_content":[
-			        "两人三足",
-			        "接力运球",
-			    	"跳长绳"
-				],
-		        "total_people_num":"186",
-	    	    "total_boys_num":"100",
-		        "total_girls_num":"86"
-            }
-    	],
-		"message":"活动数据页面：按关键字搜索活动数据 成功"
-	}
-}
-```
-
-
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"活动数据页面：按关键字搜索相关信息 失败"
-	}
-}
-```
-
-### 返回信息说明
-```
-{
-	"activity_name":"活动名称"
-	"year":"年份",
-	status":"活动状态（进行中、已结束、未开始）",
-	"held_time":[{
-		"开始时间":"2020.06.03",
-		"结束时间":"2020.06.03"
-	}],
-	"activity_type":"活动类别（线上比赛、线下比赛）",
-	"project_content":"包含项目",
-	"total_people_num":"总人数",
-	"total_boys_num":"男生人数",
-	"total_girls_num":"女生人数"
-}
-```
-
-
-
-
-
-# 学生数据页面_首页
 <img src="https://s1.ax1x.com/2020/06/19/Nul4Ld.png"/>
 
+### 获取学生参赛统计信息get_students_competitions_data_list
 
+接口地址：`http://hostnamem/user/student/info`  
+支持格式：`json`  
+请求方法：*`GET`*  
+请求示例：
 
-## **9\. 查看所有学生参加比赛数据列表get_students_competitions_data_list**
-### 名称
-> 查看所有学生参加比赛数据列表
+```url
+http://hostname/user/student/info
 
->  (所有学生参赛数据都展示出来、不分页)
+http://hostname/user/student/info/year/2020
+http://hostname/user/student/info/year/2020/keyword/机器人
 
-###  URL（只是个例子）
-> [http://api.local.com/v1/students/get_students_competitions_data_list](http://api.local.com/v1/users/get_student_competition_data_list)
-
-
-
-###  请求方式
-> get
-
-### 支持格式
-> json
-
-### 请求参数
-##### （无参数）
-
-```
-{
-	"offset":""
-}
-```
-
-
-
-### 正确返回格式
-```
-{
-	"response":{
-		"code":"20000",
-		"data":
-		[
-			{
-				"student_name":"艾秋富",
-				"student_id":"201700001",
-				"sex":"男",
-				"grade":"大二",
-				"school_name":"北京理工大学",
-				"total_attendance":"3",
-				"total_awards":"3"
-			},
-			{
-				"student_name":"白锦如",
-				"student_id":"201700002",
-				"sex":"男",
-				"grade":"大二",
-				"school_name":"北京理工大学",
-				"total_attendance":"6",
-				"total_awards":"6"
-			}
-		],
-		"message":"学生数据首页：查看所有学生参加比赛数据列表 成功"
-	}
-}
-```
-
-
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"学生数据首页：查看所有学生参加比赛数据列表 失败"
-	}
-}
-```
-
-### 返回信息说明
-```
-{
-	"student_name":"学生姓名",
-	"student_id":"学生学号",
-	"sex":"学生性别",
-	"grade":"学生年级",
-	"school_name":"学校",
-	"total_attendance":"历年总参加比赛次数"
-	"num_awards":"历年总获奖次数"
-}
-```
-
-
-
-## **10\. 按年份 搜索学生参加的活动 统计列表search_students_activities_statisticals_by_years**
-### 名称
->  按年份 搜索学生参加的 活动统计列表
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/students/search_students_activities_statisticals_by_years](http://api.local.com/v1/students/search_students_activities_statisticals_by_years)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{
-	"years":"2020"
-}
-```
-
-
-### 正确返回格式
-
-```
-{
-	"response":{
-		"code":"20000",
-		"data":
-		[
-			{
-				"student_name":"艾秋富",
-				"student_id":"201700001",
-				"sex":"男",
-				"grade":"大二",
-				"school_name":"北京理工大学",
-				"annual_total_attendance":"3",
-				"annual_total_awards":"3"
-			},
-			{
-				"student_name":"白锦如",
-				"student_id":"201700002",
-				"sex":"男",
-				"grade":"大二",
-				"school_name":"北京理工大学",
-				"annual_total_attendance":"6",
-				"annual_total_awards":"6"
-			}
-		],
-		"message":"学生数据首页：按年份查询学生参加的活动统计列表 成功"
-	}
-}
-```
-
-
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50003",
-		"message":"学生数据首页：按年份查询学生参加的活动统计列表 失败"
-	}
-} 
-```
-
-### 返回信息说明
-```
-	{
-		"student_name":"姓名",
-		"student_id":"学号",
-		"sex":"性别",
-		"grade":"年级",
-		"school_name":"学校",
-		"annual_total_attendance":"年参赛次数",
-		"annual_total_awards":"年获奖次数",
-	}
-		
-```
-
-
-
-
-
-
-## **11\. 按全字段 搜索全体学生参加的历年累计总活动 信息统计列表search_students_activities_statisticals_by_keyword**
-### 名称
->  按全字段 搜索全体学生参加的历年累计总活动 信息统计列表
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/students/search_students_activities_statisticals_by_keyword](http://api.local.com/v1/students/search_students_activities_statisticals_by_keyword)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-##### （姓名、学号、性别、年级、学校中任意一个）
-
-```
-{
-	"keyword":"北京理工大学"
-}
-```
-
-
-### 正确返回格式
-
-```
-{
-	"response":{
-		"code":"20000",
-		"data":
-		[
-			{
-				"student_name":"艾秋富",
-				"student_id":"201700001",
-				"sex":"男",
-				"grade":"大二",
-				"school_name":"北京理工大学",
-				"total_attendance":"3",
-				"total_awards":"3"
-			},
-			{
-				"student_name":"白锦如",
-				"student_id":"201700002",
-				"sex":"男",
-				"grade":"大二",
-				"school_name":"北京理工大学",
-				"total_attendance":"6",
-				"total_awards":"6"
-			}
-		],
-		"message":"学生数据首页：按全字段查询学生参加的活动统计列表 成功"
-	}
-}
-```
-
-
-### 错误返回格式（关键字不存在）
-```
-{
-	"response":{
-		"code":"50003",
-		"message":"学生数据首页：按全字段查询学生参加的活动统计列表 失败"
-	}
-} 
-```
-
-### 返回信息说明
-```
-		
-{
-	"student_name":"学生姓名",
-	"student_id":"学号",
-	"sex":"性别",
-	"grade":"年级",
-	"school_name":"学校",
-	"total_attendance":"历年总参赛次数",
-	"total_awards":"历年总获奖次数"
-}
-```
-
-
-
-
-
-
-
-# 学生数据-个人数据详情页面
-
-<img src="https://s1.ax1x.com/2020/06/19/NuNjZF.png"/>
-
-## 学生数据页面第一板块——学生个人数据详情
-
-
-## **12\. 查看学生个人详情数据search_student_personal_details_by_id**
-### 名称
-> 查看学生个人详情数据
-
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/students/search_student_personal_details_by_id](http://api.local.com/v1/students/search_student_personal_details_by_id)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{
-	"student_id":"201700001"
-}
-```
-
-
-
-### 正确返回格式
-```
-{
-	"response":{
-		"code":"20000",
-		"student_name":"艾秋富",
-		"student_id":"201700001",
-		"sex":"男",
-		"grade":"大二",
-		"school_name":"北京理工大学",
-		"total_attendance":"3"
-		"total_awards":"3",
-		"individual_awards":"2",
-		"group_awards":"1",
-		"message":"学生数据个人页：查看学生个人详情数据 成功"
-	}
-}
 
 ```
 
+- 请求参数：
 
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"学生数据个人页：查看学生个人详情数据 失败"
-	}
-}
-```
+|  参数名称     |   类型     |    必填    |  说明            |
+|   ----       |  :----:   |  :----:   |  :----:          |
+|   year   |   string  |    n      |  参赛年份       |
+|   keyword  |   string  |    n      | 关键字       |
 
-### 返回信息说明
-```
-{
-	"response":{
-		"student_name":"姓名",
-		"student_id":"学号",
-		"sex":"性别",
-		"grade":"年级",
-		"school_name":"学校",
-		"total_attendance":"历年总参赛次数"
-		"total_awards":"历年总获奖次数",
-		"individual_awards":"历年总个人奖数量",
-		"group_awards":"历年总团体奖数量"
-	}
-}
-```
+- 响应内容：
 
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   coede          |   string   |   返回码    |
+|   message        |   string   |   提示信息    |
+|   data       |   array  |   学生信息相关数组    |
 
+- JSON响应示例：
+  - 正确示例：
 
-
-
-
-
-# 数据统计可视化
-
-## 学生数据第二板块——数据可视化-个人月参赛获奖折线图
-
-<img src="https://s1.ax1x.com/2020/06/19/NuNjZF.png"/>
-
-## **13\. 查看学生个人  参赛 月 数据search_student_competition_monthly_data**
-### 名称
-> 查看学生个人  参赛 月  数据
-
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/students/search_students_competitions_monthly_data](http://api.local.com/v1/students/search_students_competitions_monthly_data)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{   
-	"student_id":"201700001",
-    "year":"2018",
-    "keyword":"attendance"
-}
-```
-
-
-
-### 正确返回格式（查看学生参加比赛数据成功）
-```
-{
-	"response":{
-		"code":"20000",
-		"monthly_attendance":
-		[
-			"0",
-			"0",
-			"0",
-			"0",
-			"3",
-			"0",
-			"0",
-			"0",
-			"0",
-			"0",
-			"0",
-			"0"
-		],
-		"message":"学生数据可视化：查看学生参赛月数据 成功"
-	}
-}
-```
-
-
-### 错误返回格式（该年份比赛不存在）
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"学生数据可视化：查看学生参赛月数据 失败"
-	}
-}
-```
-
-### 返回信息说明
-```
-{
-	"monthly_attendance":
-	[
-		"jan":"一月参赛次数",
-		"feb":"二月参赛次数",
-		"mar":"三月参赛次数",
-		"apr":"四月参赛次数",
-		"may":"五月参赛次数",
-		"june":"六月参赛次数",
-		"jul":"七月参赛次数",
-		"aug":"八月参赛次数",
-		"sept":"九月参赛次数",
-		"oct":"十月参赛次数",
-		"nov":"十一月参赛次数",
-		"dec":"十二月参赛次数"
-	]
-}
-```
-
-
-
-
-
-## **14\. 查看学生个人   获奖 月 数据search_student_awards_monthly_data**
-### 名称
-> 查看学生个人  获奖  月  数据
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/students/search_student_awards_monthly_data](http://api.local.com/v1/students/search_student_awards_monthly_data)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{
-	"student_id":"201700001",
-	"year":"2018",
-	"keyword":"awards"
-}
-```
-
-
-
-### 正确返回格式（查看学生参加比赛数据成功）
-```
-{
-	"response":{
-		"code":"20000",
-		"monthly_awards":
-		[
-			"0",
-			"0",
-			"0",
-			"0",
-			"3",
-			"0",
-			"0",
-			"0",
-			"0",
-			"0",
-			"0",
-			"0"
-		],
-		"message":"学生数据可视化：查看学生个人月获奖数据 成功"
-	}
-}
-```
-
-
-### 错误返回格式（该年份获奖信息不存在）
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"学生数据可视化：查看学生个人月获奖数据 失败"
-	}
-}
-```
-
-### 返回信息说明
-```
-{
-	"monthly_awards":
-	[{
-		"jan":"一月获奖次数",
-		"feb":"二月获奖次数",
-		"mar":"三月获奖次数",
-		"apr":"四月获奖次数",
-		"may":"五月获奖次数",
-		"june":"六月获奖次数",
-		"jul":"七月获奖次数",
-		"aug":"八月获奖次数",
-		"sept":"九月获奖次数",
-		"oct":"十月获奖次数",
-		"nov":"十一月获奖次数",
-		"dec":"十二月获奖次数"
-	}]
-}
-		
-```
-
-
-## 学生数据页面第三板块——活动详情-列表
-
-<img src="https://s1.ax1x.com/2020/06/19/NuNjZF.png"/>
-
-## **15\. 按比赛年份 搜索学生A该年的活动数据search_student_activities_by_year**
-### 名称
-> 按比赛年份 搜索学生A该年的学生个人参加活动数据
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/students/search_student_activities_by_year](http://api.local.com/v1/students/search_student_activities_by_year)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{
-	"student_id":"201700001"
-	"year":"2020"
-}
-```
-
-
-
-### 正确返回格式（按年份搜索成功、获奖）
-```
-{
-	"response":{
-		"code":"20000",
-        "activities":
-        [
-            {
-		        "activity_name":"中学线上运动会",
-		        "year":"2020",
-		         status":"进行中",
-		        "held_time":
-                [
-                    {
-			            "start_time":"2020.06.03",
-			            "end_time":"2020.06.03"
-			        }
-                ],
-		        "activity_type":"线上比赛",
-		        "project_awards":
-                [
-                     {
-			            "project":"俯卧撑",
-			            "awards":"个人三等奖"
-			        },
-                    {
-                        "project":"仰卧起坐",
-			            "awards":"男子团体三等奖"
-                    },
-                    {
-                        "project":"引体向上",
-			            "awards":"初中团体三等奖"
-                    }
-                ],
-            },
-			{
-		        "activity_name":"中学趣味运动会",
-		        "year":"2020",
-		         status":"进行中",
-		        "held_time":
-                [
-                    {
-			            "start_time":"2020.06.03",
-			            "end_time":"2020.06.03"
-			        }
-                ],
-		        "activity_type":"线下比赛",
-		        "project_awards":
-                [
-                     {
-			            "project":"两人三足",
-			            "awards":"个人三等奖"
-			        },
-                    {
-                        "project":"接力运球",
-			            "awards":"男子团体三等奖"
-                    },
-                    {
-                        "project":"跳长绳",
-			            "awards":"初中团体三等奖"
-                    }
-                ],
-            }
+    ```json
+    {
+        "response": {
+            "code": "20000",
+            "message": "学生数据首页:查看所有学生参赛统计信息 成功",
+            "data": [
+                {
+                    "name": "",
+                    "id": "",
+                    "sex": "",
+                    "grade": "",
+                    "school": "",
+                    "num_attendance": 16,
+                    "num_awards": 21
+                }
         ]
-		"message":"学生数据活动详情：按年份搜索活动数据 成功"
-	}
-}
-```
-
-
-### 错误返回格式（该年份比赛不存在）
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"学生数据活动详情：按年份搜索活动数据 失败"
-	}
-}
-```
-
-### 返回信息说明
-```
-{
-	"activity_name":"活动名称"
-	"year":"活动举办年份",
-	status":"活动状态（进行中、已结束、未开始）",
-	"held_time":
-    [
-        {
-			"开始时间":"2020.06.03",
-			"结束时间":"2020.06.03"
-		}
-    ],
-	"activity_type":"活动类别（线上比赛、线下比赛）",
-	"project_awards":
-    [
-    	{
-			"project":"项目1",
-			"awards":"项目1获奖"
-		},
-        {
-            "project":"项目2",
-			"awards":"项目2获奖"
         }
-    ]
-}
-		
-```
+    }
+    ```
 
+  - 错误示例：
 
-
-
-## **16\. 按奖项搜索学生参加的活动search_students_activities_by_awards**
-
-### 名称
-
->  按奖项搜索学生参加的活动
-
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/students/search_student_activities_by_awards](http://api.local.com/v1/students/search_student_activities_by_awards)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-##### （一等奖,二等奖,三等奖、）
-
-```
-{
-    "student_id":"201700001",
-	"awards":"三等奖"
-}
-```
-
-
-
-### 正确返回格式（按奖项搜索学生参加的活动成功）
-```
-{
-	"response":{
-		"code":"20000",
-		"activities":
-        [
-            {
-		        "activity_name":"中学线上运动会",
-		        "year":"2020",
-		         status":"进行中",
-		        "held_time":
-                [
-                    {
-			            "start_time":"2020.06.03",
-			            "end_time":"2020.06.03"
-			        }
-                ],
-		        "activity_type":"线上比赛",
-		        "project_awards":
-                [
-                     {
-			            "project":"俯卧撑",
-			            "awards":"个人三等奖"
-			        },
-                    {
-                        "project":"仰卧起坐",
-			            "awards":"男子团体三等奖"
-                    },
-                    {
-                        "project":"引体向上",
-			            "awards":"初中团体三等奖"
-                    }
-                ],
-            },
-			{
-		        "activity_name":"中学趣味运动会",
-		        "year":"2020",
-		         status":"进行中",
-		        "held_time":
-                [
-                    {
-			            "start_time":"2020.06.03",
-			            "end_time":"2020.06.03"
-			        }
-                ],
-		        "activity_type":"线下比赛",
-		        "project_awards":
-                [
-                     {
-			            "project":"两人三足",
-			            "awards":"个人三等奖"
-			        },
-                    {
-                        "project":"接力运球",
-			            "awards":"男子团体三等奖"
-                    },
-                    {
-                        "project":"跳长绳",
-			            "awards":"初中团体三等奖"
-                    }
-                ],
-            }
-        ]
-		"message":"学生数据活动详情：按奖项搜索学生参加的活动 成功"
-	}
-}
-```
-
-
-### 错误返回格式（奖项不存在）
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"学生数据活动详情：按奖项搜索学生参加的活动 失败"
-	}
-} 
-```
-
-### 返回信息说明
-```
-{
-	"activity_name":"活动名称"
-	"year":"活动举办年份",
-	status":"活动状态（进行中、已结束、未开始）",
-	"held_time":
-    [
-        {
-			"开始时间":"2020.06.03",
-			"结束时间":"2020.06.03"
-		}
-    ],
-	"activity_type":"活动类别（线上比赛、线下比赛）",
-	"project_awards":
-    [
-        {
-			"project":"项目1",
-			"awards":"项目1获奖"
-		},
-        {
-            "project":"项目2",
-			"awards":"项目2获奖"
+    ```json
+    {
+        "response": {
+            "code": "50006",
+            "message": "学生数据首页:所有学生参赛统计信息 失败",
         }
-    ]
-}
-		
+    }
+    ```
+
+## 学生数据第一版块-个人数据详情页面
+
+<img src="https://s1.ax1x.com/2020/06/19/NuNjZF.png"/>
+
+### 获取学生个人竞赛信息 search_student_personal_details_by_id
+
+接口地址：`http://hostname/user/student/details`  
+支持格式：`json`  
+请求方法：*`GET`*  
+请求示例：
+
+```url
+http://hostname/user/student/details/id/20001
+
+http://hostname/user/student/details/id/20001/year/2000
+http://hostname/user/student/details/id/20001/award/一等奖
+http://hostname/user/student/details/id/20001/keyword/机器人
 ```
 
+- 请求参数：
 
+|  参数名称     |   类型     |    必填    |  说明           |
+|   ----       |  :----:   |  :----:   |  :----:         |
+|   id   |   string  |    y      |  学号       |
+|   year   |   string  |    n      |  参赛年份       |
+|   award   |   string  |    n      |  获奖情况       |
+|   keyword   |   string  |    n     | 关键字       |
 
-## **17\. 按全字段关键字搜索该学生参加的活动search_students_activities_by_keyword**
-### 名称
-> 按全字段关键字搜索该学生参加的活动
+- 响应内容：
 
-###  URL（只是个例子）
-> [http://api.local.com/v1/students/search_students_activities_by_keyword](http://api.local.com/v1/students/search_students_activities_by_keyword)
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   coede          |   string   |   返回码    |
+|   message        |   string   |   提示信息    |
+|   data       |   array  |   信息相关数组    |
 
+- JSON响应示例：
+  - 正确示例：
 
+   ```json
+    {
+        "response": {
+            "code": "20000",
+            "message": "学生数据详情：获取学生个人竞赛信息 成功",
+            "data": [
+                {
+                    "name": "",
+                    "year": "",
+                    "status": "",
+                    "hold_time": [
+                        "",
+                        ""
+                    ],
+                    "type": "",
+                    "event": [
+                        [
+                            "俯卧撑","一等奖"
+                        ],
+                        [
+                            "俯卧撑","一等奖"
+                        ]
+                    ]
+                },
+                {
+                    "name": "",
+                    "year": "",
+                    "status": "",
+                    "hold_time": [
+                        "",
+                        ""
+                    ],
+                    "type": "",
+                    "event": [
+                        [
+                            "俯卧撑","一等奖"
+                        ],
+                        [
+                            "俯卧撑","一等奖"
+                        ]
+                    ]
+                }
+            ]
+        }
+    }
+    ```
 
-###  请求方式
-> post
+  - 错误示例：
 
-### 支持格式
-> json
+    ```json
+    {
+        "response": {
+            "code": "50007",
+            "message": "学生数据详情：获取学生个人竞赛信息 成功失败",
+        }
+    }
+    ```
 
-### 请求参数
-##### （关键字,可以是活动名称,状态,活动类别,比赛项目,获奖情况中任意一个）
+## 数据统计可视化
 
+<img src="https://s1.ax1x.com/2020/06/19/NuNjZF.png"/>
+
+### 获取学生竞赛/获奖视图
+
+接口地址：`http://hostname/user/student/view`  
+支持格式：`json`  
+请求方法：*`GET`*  
+请求示例：
+
+```url
+http://hostname/user/student/view/id/201/year/2020
 ```
-{
-	"keyword":"2018年全国大学联赛"
-}
-```
 
+- 请求参数：
 
+|  参数名称     |   类型     |    必填    |  说明            |
+|   ----       |  :----:   |  :----:   |  :----:          |
+|   id   |   string  |    N      |  学号       |
+|   year    |  string   |    N      |  参赛年份      |
 
-### 正确返回格式（按关键字搜索学生参加的活动成功）
-```
-{
-	"response":{
-		"code":"20000",
-		"activities":
-        [
-            {
-		        "activity_name":"中学线上运动会",
-		        "year":"2020",
-		         status":"进行中",
-		        "held_time":
-                [
-                    {
-			            "start_time":"2020.06.03",
-			            "end_time":"2020.06.03"
-			        }
+- 响应内容：
+
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   coede          |   string   |   返回码    |
+|   message        |   string   |   提示信息    |
+|   data       |   array  |   信息相关数组    |
+
+- JSON响应示例：
+  - 正确示例：
+
+    ```json
+    {
+        "response": {
+            "code": "20000",
+            "message": "学生详情可视化:查看学生个人参赛月数据 成功",
+            "data": {
+                "num_attendance": [
+                    12, 12, 12, 32, 13, 14, 15, 14, 15, 0, 0, 0
                 ],
-		        "activity_type":"线上比赛",
-		        "project_awards":
-                [
-                     {
-			            "project":"俯卧撑",
-			            "awards":"个人三等奖"
-			        },
-                    {
-                        "project":"仰卧起坐",
-			            "awards":"男子团体三等奖"
-                    },
-                    {
-                        "project":"引体向上",
-			            "awards":"初中团体三等奖"
-                    }
-                ],
-            },
-			{
-		        "activity_name":"中学趣味运动会",
-		        "year":"2020",
-		         status":"进行中",
-		        "held_time":
-                [
-                    {
-			            "start_time":"2020.06.03",
-			            "end_time":"2020.06.03"
-			        }
-                ],
-		        "activity_type":"线下比赛",
-		        "project_awards":
-                [
-                     {
-			            "project":"两人三足",
-			            "awards":"个人三等奖"
-			        },
-                    {
-                        "project":"接力运球",
-			            "awards":"男子团体三等奖"
-                    },
-                    {
-                        "project":"跳长绳",
-			            "awards":"初中团体三等奖"
-                    }
-                ],
+                "num_awards": [
+                    12, 24, 154, 214 , 2, 24, 5, 2, 0, 0, 0, 0
+                ]
             }
-        ]
-		"message":"学生数据活动详情：按关键字搜索学生参加的活动 成功"
-	}
-}
-```
+        }
+    }
+    ```
 
+  - 错误示例：
 
-### 错误返回格式（关键字对应信息不存在）
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"学生数据活动详情：按关键字搜索学生参加的活动 成功"
-	}
-}
-```
+    ```json
+    {
+        "response": {
+            "code": "50009",
+            "message": "学生详情可视化:查看学生个人参赛月数据 失败",
+        }
+    }
+    ```
 
-### 返回信息说明
-```
-{
-	"activity_name":"活动名称",
-	"held_time":"年份、举办时间",
-	"status":"活动状态（进行中、已结束、未开始）",
-	"activity_type":活动类别"",
-	"project_awards":"比赛项目、获奖情况"
-}
-		
-```
+## 学校数据接口
 
-
-
-
-
-
-# 学校数据
+### 获取学校参与竞赛的数据 get_schools_competition_data_list**
 
 <img src="https://s1.ax1x.com/2020/06/19/Nu2CA1.png"/>
 
+接口地址：`http://hostname/user/school/info`  
+支持格式：`json`  
+请求方法：*`GET`*  
+请求示例：
 
-
-## **18\. 查看 所有学校 历年累计比赛数据统计 get_schools_competition_data_list**
-### 名称
->查看 所有学校 比赛数据统计
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/schools/get_schools_competition_data_list](http://api.local.com/v1/schools/get_schools_competition_data_list)
-
-
-
-###  请求方式
-> get
-
-### 支持格式
-> json
-
-### 请求参数
-##### （无参数）
-```
-{
-	"offset":""
-}
+```url
+http://hostname/user/school/info
+http://hostname/user/school/info/name/中国传媒大学
 ```
 
+- 请求参数：
 
+|  参数名称     |   类型     |    必填    |  说明            |
+|   ----       |  :----:   |  :----:   |  :----:          |
+|   name  |   string  |    N      |  学校名       |
 
-### 正确返回格式
-```
-{
-	"response":{
-		"code":"20000",
-		"data":
-        [
-			{
-			    "school_name":"北京理工大学",
-			    "school_total_attendance":"10",
-			    "school_total_awards":"9",
-			    "school_total_awards_student":"7",
-			    "school_total_individual_awards":"5",
-			    "school_total_group_awards":"4",
-			},
-			{
-			    "school_name":"中国传媒大学",
-			    "school_total_attendance":"15",
-			    "school_total_awards":"14",
-			    "school_total_awards_student":"10",
-			    "school_total_individual_awards":"8",
-			    "school_total_group_awards":"6",
-			}
-		],
-		"message":"学校数据首页：查看所有学校历年累计总体比赛数据 成功"
-	}
-}
-```
+- 响应内容：
 
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   coede          |   string   |   返回码    |
+|   message        |   string   |   提示信息    |
+|   data       |   array  |   信息相关数组    |
 
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"学校数据首页：查看所有学校历年累计总体比赛数据 失败"
-	}
-}
-```
+- JSON响应示例：
+  - 正确示例：
 
-### 返回信息说明
-```
-{
-	"school_name":"学校名称",
-	"school_total_attendance":"学校历年累计总参赛次数",
-	"school_total_awards":"学校历年累计总获奖次数",
-	"school_total_awards_student":"学校历年累计总个人获奖学生数量",
-	"school_total_individual_awards":"学校历年累计总个人奖数量",
-	"school_total_group_awards":"学校历年累计总团体奖数量"
-}
-		
-```
+    ```json
+    {
+        "response": {
+            "code": "20000",
+            "message": "学校数据页面：获取学校参与竞赛数据成功",
+            "data": [
+                {
+                    "name": "",
+                    "num_competition_attend": 21,
+                    "num_awards": 55,
+                    "num_award_students": 54,
+                    "num_indi_awards": 72,
+                    "num_group_awards": 15
+                },
+                {
+                    "name": "",
+                    "num_competition_attend": 21,
+                    "num_awards": 55,
+                    "num_award_students": 54,
+                    "num_indi_awards": 72,
+                    "num_group_awards": 15
+                }
+            ]
+        }
+    }
+    ```
 
+    - 错误示例：
 
+    ```json
+    {
+        "response": {
+            "code": "50010",
+            "message": "学校数据:获取学校参与竞赛数据 失败",
+        }
+    }
+    ```
 
+## 平台数据接口
 
-## **19\. 查看单个学校总体 比赛数据get_school_competition_data**
-
-## 名称
-> 单个学校 总体比赛数据
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/users/search_school_annual_competition_data](http://api.local.com/v1/users/search_school_annual_competition_data)
-
-
-#### 请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{
-	"school_name":"北京理工大学"
-}
-```
-
-
-
-### 正确返回格式
-```
-{
-	"response":{
-		"code":"20000",
-		"school_name":"北京理工大学",
-		"school_total_attendance":"10",
-		"school_total_awards":"9",
-		"school_total_awards_students":"7",
-		"school_total_individual_awards":"5",
-		"school_total_group_awards":"4",
-		"message":"学校数据：查看单个学校总体比赛数据 成功"
-	}
-}
-```
-
-
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"学校数据：查看单个学校总体比赛数据 失败"
-	}
-}
-```
-
-### 返回信息说明
-```
-{
-	"school_name":"学校名称",
-	"school_total_attendance":"学校历年累计总参赛次数",
-	"school_total_awards":"学校历年累计总获奖次数",
-	"school_total_awards_students":"学校历年累计总获奖学生人数",
-	"school_total_individual_awards:"学校历年累计总个人奖数量",
-	"school_total_group_awards":"学校历年累计总团体奖数量"
-}
-
-		
-```
-
-
-
-## **20\. 查看 单个学校 年度总体 比赛数据get_school_annual_competition_data**
-
-## 名称
-> 单个学校 年度总体比赛数据
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/users/search_school_annual_competition_data](http://api.local.com/v1/users/search_school_annual_competition_data)
-
-
-#### 请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{
-	"school_name":"北京理工大学",
-	"year":"2018"
-}
-```
-
-
-
-### 正确返回格式（ 查看学校 每年 比赛数据成功）
-```
-{
-	"response":{
-		"code":"20000",
-		"school_name":"北京理工大学",
-		"school_annual_attendance":"10",
-		"school_annual_awards":"9",
-		"school_annual_awards_student":"7",
-		"school_annual_individual_awards":"5",
-		"school_annual_group_awards":"4",
-		"message":"学校数据首页:查看单个学校年度总体比赛数据 成功"
-	}
-}
-```
-
-
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"学校数据首页:查看单个学校年度总体比赛数据 失败"
-	}
-}
-```
-
-### 返回信息说明
-```
-{
-	"school_name":"学校名称",
-	"school_annual_attendance":"学校年度参赛次数",
-	"school_annual_awards":"学校年度获奖次数",
-	"school_annual_awards_student":"学校年度获奖学生人数",
-	"school_annual_individual_awards":"学校年度个人奖数量",
-	"school_annual_group_awards":"学校年度团体奖数量"
-}
-		
-```
-
-
-# 平台数据— — — —第一版块
+### 获取平台历年数据  get_platform_total_data**
 
 <img src="https://s1.ax1x.com/2020/06/19/NuxGF0.png"/>
 
+接口地址：`http://hostname/user/platform/info`  
+支持格式：`json`  
+请求方法：*`GET`*  
+请求示例：
 
-
-## **21\. 查看 平台历年汇总数据get_platform_total_data**
-### 名称
-
->  查看 平台 历年汇总数据
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/users/get_platform_total_data](http://api.local.com/v1/users/get_platform_total_data)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{
-	"keyword":"platform"
-}
+```url
+http://hostname/user/platform/info/year/2020
 ```
 
+- 请求参数：
 
+|  参数名称     |   类型     |    必填    |  说明            |
+|   ----       |  :----:   |  :----:   |  :----:          |
+|   year   |   string  |    y      |  平台记录的数据的年份       |
 
-### 正确返回格式
-```
-{
-	"response":{
-		"code":"20000",
-		"platform_total_competition_num":"10",
-		"platform_total_student_num":"56",
-		"platform_total_school_num":"9",
-		"platform_total_boys_num":"30",
-		"platform_total_girls_num":"26",
-		"platform_total_awards_boys_num":"28",
-		"platform_total_awards_girls_num":"25",
-		"message":"平台数据：查看平台历年汇总数据 成功"
-	}
-}
-```
+- 响应内容：
 
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   coede          |   string   |   返回码    |
+|   message        |   string   |   提示信息    |
+|   data       |   array  |   平台信息相关数组    |
 
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"平台数据：查看平台历年汇总数据 失败"
-	}
-}
-```
+- JSON响应示例：
+  - 正确示例：
 
-### 返回信息说明
-```
-{
-	"platform_total_competition_num":"平台历年总竞赛活动数量",
-	"platform_total_student_num":"平台历年总参赛学生人数",
-	"platform_total_school_num":"平台历年总参赛学校数量",
-	"platform_total_boys_num":"平台历年总参赛男生数量",
-	"platform_total_girls_num":"平台历年总参赛女生数量",
-	"platform_total_awards_boys_num":"平台历年总获奖男生数量",
-	"platform_total_awards_girls_num":"平台历年总获奖女生数量"
-}
-		
-```
+    ```json
+    {
+        "response": {
+            "code": "20000",
+            "message": "平台数据：获取平台历年数据 成功",
+            "data": {
+                "num_competition": 20,
+                "num_students": 22,
+                "num_school": 23,
+                "num_male": 15,
+                "num_female": 25,
+                "num_award_male": 46,
+                "num_award_female": 54
+            }
+        }
+    }
+    ```
 
+  - 错误示例：
 
+    ```json
+    {
+        "response": {
+            "code": "50011",
+            "message": "平台数据：获取平台历年数据 失败",
+        }
+    }
 
-## **22\. 查看 平台 年度数据get_platform_annual_data**
-### 名称
+### 获取年度对比数据 search_platform_data_between_years
 
->  查看 平台 年度数据
+接口地址：`http://hostname/user/platform/compare`  
+支持格式：`json`  
+请求方法：*`GET`*  
+请求示例：
 
-###  URL（只是个例子）
-> [http://api.local.com/v1/users/get_platform_annual_data](http://api.local.com/v1/users/get_platform_annual_data)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{
-	"year":"2018"
-}
+```url
+http://hostname/user/platform/compare/year/2020/to/2019
 ```
 
+- 请求参数：
 
+|  参数名称     |   类型     |    必填    |  说明            |
+|   ----       |  :----:   |  :----:   |  :----:          |
+|   origin_year  |   string  |    N      |  年份       |
+|   reference_year    |  string   |    N      |  被对比年份      |
 
-### 正确返回格式（ 查看 平台 年度比赛项目数据成功）
-```
-{
-	"response":{
-		"code":"20000",
-		"platform_annual_competition_num":"10",
-		"platform_annual_student_num":"56",
-		"platform_annual_school_num":"9",
-		"platform_annual_boys_num":"30",
-		"platform_annual_girls_num":"26",
-		"platform_annual_awards_boys_num":"28",
-		"platform_annual_awards_girls_num":"25",
-		"message":"平台数据：查看平台年度数据 成功"
-	}
-}
-```
+- 响应内容：
 
+|   参数名称        |   类型      | 说明  |
+|   ----           |   :----:   | ----  |
+|   coede          |   string   |   返回码    |
+|   message        |   string   |   提示信息    |
+|   data       |   array  |   信息相关数组    |
 
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"平台数据：查看平台年度数据 失败"
-	}
-}
-```
+- JSON响应示例：
+  - 正确示例：
 
-### 返回信息说明
-```
-		"platform_annual_competition_num":"平台年度竞赛活动数量",
-		"platform_annual_student_num":"平台年度参赛学生人数",
-		"platform_annual_school_num":"平台年度参赛学校数量",
-		"platform_annual_boys_num":"平台年度参赛男生数量",
-		"platform_annual_girls_num":"平台年度参赛女生数量",
-		"platform_annual_awards_boys_num":"平台年度获奖男生数量",
-		"platform_annual_awards_girls_num":"平台年度获奖女生数量"
-```
+    ```json
+    {
+        "response": {
+            "code": "20000",
+            "message": "平台数据：获取年度对比数据 成功",
+            "data": [
+                {
+                    "year": "",
+                    "num_comp": 201,
+                    "num_student": 1011,
+                    "num_school": 701
+                },
+                {
+                "year": "",
+                    "num_comp": 689,
+                    "num_student": 520,
+                    "num_school": 510
+                }
+            ]
+        }
+    }
+    ```
 
+  - 错误示例：
 
+    ```json
+    {
+        "response": {
+            "code": "50013",
+            "message": "平台数据：获取年度对比数据 失败",
+        }
+    }
+    ```
 
-## **23\. 查看 平台 两个年度   数据对比search_platform_data_between_years**
-<img src="https://s1.ax1x.com/2020/06/19/NKpkw9.png">
+## API 错误码
 
-## 名称
-
-
->  查看 平台 两个年度数据对比
->  (功能简化了,只展示2020年以及2019年的活动项目数、参赛人数和学校数。)
-
-###  URL（只是个例子）
-> [http://api.local.com/v1/platform/search_platform_data_between_years](http://api.local.com/v1/platform/search_platform_data_between_years)
-
-
-
-###  请求方式
-> post
-
-### 支持格式
-> json
-
-### 请求参数
-
-```
-{
-	"origin_year":"2020",
-	"refernce_year":"2019"
-}
-```
-
-
-
-### 正确返回格式
-```
-{
-	"response":{
-		"code":"20000",
-		"comparison_between_years":
-        [
-			{
-			    "origin_year_activities_num":"50",
-			    "origin_year_people_num":"120",
-			    "origin_year_schools_num":"6",
-			},
-			{
-			    "reference_year_activities_num":"48",
-			    "reference_year_people_num":"100",
-			    "reference_year_schools_num":"4",
-			}
-		],
-		"message":"平台数据对比:查看平台年度对比数据 成功"
-		}
-}
-```
-
-
-### 错误返回格式
-```
-{
-	"response":{
-		"code":"50004",
-		"message":"平台数据对比:查看平台年度对比数据 失败"
-	}
-}
-```
-
-### 返回信息说明
-```
-{
-	"comparison_between_years":
-    [
-		{
-			"origin_year_activities_num":"平台第一年活动数量",
-			"origin_year_people_num":"平台第一年参赛人数",
-			"origin_year_schools_num":"平台第一年参赛学校数量",
-		},
-		{
-			"reference_year_activities_num":"平台参考年活动数量",
-			"reference_year_people_num":"平台参考参赛人数",
-			"reference_year_schools_num":"平台参考年参赛学校人数",
-		}
-	]
-}
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
+|   error_code      |   msg      | 来源接口  |
+|   ----           |   :----:   | ----  |
+|   50001        |   用户名不存在    |  用户登录    |
+|   50002        |   密码错误  |   用户登录   |
+|   50003       |    旧密码错误  |   用户修改密码    |
+|   50004      |    文件导入失败  |  导入竞赛信息    |
+|   50005       |    按年搜活动失败 |    按年份获取竞赛信息    |
+|   50006       |     查所有学生参赛统计信息失败  |   获取学生参赛统计信息    |
+|   50007       |    查学生个人竞赛信息失败   |   获取学生个人竞赛信息    |
+|   50008      |     Illegal token |       |
+|   50009        |    学生数据可视化失败   |   获取学生竞赛/获奖视图    |
+|   50010      |    获取学校竞赛数据失败  |   获取学校参与竞赛的数据|
+|   50011      |    获取平台历年数据失败 |    获取平台历年数据    |
+|   50012       |    Other clients logged in  |      |
+|   50013       |    获取年度对比数据失败 |   获取平台年度对比数据    |
+|   50014       |    Token expired |      |
