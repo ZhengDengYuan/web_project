@@ -5,31 +5,31 @@
 
 - [RESTful API 接口设计文档](#restful-api-接口设计文档)
     - [用户接口](#用户接口)
-        - [**1\. 用户登录界面**](#1\-用户登录界面)
-        - [**2\. 管理员退出登录 logout**](#2\-管理员退出登录-logout)
-        - [3.用户修改密码  change_password](#3用户修改密码--change_password)
+        - [1用户登录界面](#1用户登录界面)
+        - [2 管理员退出登录](#2-管理员退出登录)
+        - [3.用户修改密码](#3用户修改密码)
     - [竞赛数据模块接口](#竞赛数据模块接口)
-        - [导入竞赛信息 upload_excel（导入excel)](#导入竞赛信息-upload_excel导入excel)
+        - [4.导入竞赛信息 （导入excel)](#4导入竞赛信息-导入excel)
     - [活动数据详情页](#活动数据详情页)
-        - [按年份获取竞赛信息 search_activities_by_year](#按年份获取竞赛信息-search_activities_by_year)
+        - [5.按年份获取竞赛信息](#5按年份获取竞赛信息)
     - [学生数据模块_首页](#学生数据模块_首页)
-        - [获取学生参赛统计信息get_students_competitions_data_list](#获取学生参赛统计信息get_students_competitions_data_list)
+        - [6.获取学生参赛统计信息](#6获取学生参赛统计信息)
     - [学生数据第一版块-个人数据详情页面](#学生数据第一版块-个人数据详情页面)
-        - [获取学生个人竞赛信息 search_student_personal_details_by_id](#获取学生个人竞赛信息-search_student_personal_details_by_id)
+        - [7.获取学生个人竞赛信息](#7获取学生个人竞赛信息)
     - [数据统计可视化](#数据统计可视化)
-        - [获取学生竞赛/获奖视图](#获取学生竞赛获奖视图)
+        - [8.获取学生竞赛/获奖视图](#8获取学生竞赛获奖视图)
     - [学校数据接口](#学校数据接口)
-        - [获取学校参与竞赛的数据 get_schools_competition_data_list**](#获取学校参与竞赛的数据-get_schools_competition_data_list)
+        - [9.获取学校参与竞赛的数据](#9获取学校参与竞赛的数据)
     - [平台数据接口](#平台数据接口)
-        - [获取平台历年数据  get_platform_total_data**](#获取平台历年数据--get_platform_total_data)
-        - [获取年度对比数据 search_platform_data_between_years](#获取年度对比数据-search_platform_data_between_years)
+        - [10.获取平台历年数据](#10获取平台历年数据)
+        - [11.获取年度对比数据](#11获取年度对比数据)
     - [API 错误码](#api-错误码)
 
 <!-- /TOC -->
 
 ## 用户接口
 
-### **1\. 用户登录界面**
+### 1用户登录界面
 
 接口地址：`http://hostname/user/Login/login`  
 支持格式：`json`  
@@ -88,7 +88,7 @@ http://hostname/user/Login/login/user_name/Maverick/password/123
     }
     ```
 
-### **2\. 管理员退出登录 logout**
+### 2 管理员退出登录
 
 接口地址：`http://hostname/user/Login/logout`  
 支持格式：`json`  
@@ -100,6 +100,7 @@ http://hostname/user/Login/logout/token/AJKDJSLN
 ```
 
 - 请求参数
+
 |  参数名称     |   类型  |    必填   |  说明     |
 |   ----       |  :----: |  :----:  |  :----:     |
 |   token   |  string   |    y    |  用户登录令牌，用于标识唯一登录者    |
@@ -126,11 +127,13 @@ http://hostname/user/Login/logout/token/AJKDJSLN
 
     ```json
     {
-
+        "response":{
+            "code":"50015",
+             "message":"管理员退出登录 失败"
     }
     ```
 
-### 3.用户修改密码  change_password
+### 3.用户修改密码
 
 接口地址：` http://hostname/user/Login/password `  
 支持格式：`json`  
@@ -181,7 +184,7 @@ http://hostname/user/Login/old_pswd/123456/new_password/123123/token/AJKDJSLN
 
 ## 竞赛数据模块接口
 
-### 导入竞赛信息 upload_excel（导入excel)
+### 4.导入竞赛信息 （导入excel)
 
 接口地址：`http://hostname/user/competition/excel`  
 支持格式：`json`  
@@ -232,7 +235,7 @@ http://hostname/user/Login/old_pswd/123456/new_password/123123/token/AJKDJSLN
 
 <img src="https://s1.ax1x.com/2020/06/19/NumLzd.png" />
 
-### 按年份获取竞赛信息 search_activities_by_year
+### 5.按年份获取竞赛信息 
 
 接口地址：`http://hostname/user/competition/info`  
 支持格式：`json`  
@@ -242,7 +245,6 @@ http://hostname/user/Login/old_pswd/123456/new_password/123123/token/AJKDJSLN
 ```url
 http://hostname/user/competition/info
 http://hostname/user/competition/info/year/2020
-
 http://hostname/user/competition/info/keyword/机器人
 http://hostname/user/competition/info/year/2020/keyword/传媒大奖赛
 ```
@@ -260,6 +262,15 @@ http://hostname/user/competition/info/year/2020/keyword/传媒大奖赛
 |   coede          |   string   |   返回码    |
 |   message        |   string   |   提示信息    |
 |   data       |   array  |   信息相关数组    |
+|   name      |   string |   活动名称   |
+|   year       |   string |   活动举办年份    |
+|   status       |   string |   活动进行状态（结束、进行中、未开始）    |
+|   hold_time       |   array  |   活动举办日期（开始时间、结束时间）    |
+|   type       |   string |   活动类别（线上比赛、线下比赛）    |
+|   event       |   array |   活动项目数组    |
+|   num_total       |   int  |   参赛学生总人数    |
+|   num_male       |   int  |   男生总人数    |
+|   num_female       |   int  |   女生总人数    |
 
 - JSON响应示例：
   - 正确示例：
@@ -324,7 +335,7 @@ http://hostname/user/competition/info/year/2020/keyword/传媒大奖赛
 
 <img src="https://s1.ax1x.com/2020/06/19/Nul4Ld.png"/>
 
-### 获取学生参赛统计信息get_students_competitions_data_list
+### 6.获取学生参赛统计信息
 
 接口地址：`http://hostnamem/user/student/info`  
 支持格式：`json`  
@@ -333,11 +344,8 @@ http://hostname/user/competition/info/year/2020/keyword/传媒大奖赛
 
 ```url
 http://hostname/user/student/info
-
 http://hostname/user/student/info/year/2020
 http://hostname/user/student/info/year/2020/keyword/机器人
-
-
 ```
 
 - 请求参数：
@@ -354,6 +362,13 @@ http://hostname/user/student/info/year/2020/keyword/机器人
 |   coede          |   string   |   返回码    |
 |   message        |   string   |   提示信息    |
 |   data       |   array  |   学生信息相关数组    |
+|   name        |   string   |   学生姓名    |
+|   id        |   string   |   学号    |
+|   sex        |   string   |   性别    |
+|   grade        |   string   |   年级    |
+|   school        |   string   |   学校    |
+|   num_attendance        |   int   |   参赛次数    |
+|   num_awards        |   int  |   获奖次数    |
 
 - JSON响应示例：
   - 正确示例：
@@ -393,7 +408,7 @@ http://hostname/user/student/info/year/2020/keyword/机器人
 
 <img src="https://s1.ax1x.com/2020/06/19/NuNjZF.png"/>
 
-### 获取学生个人竞赛信息 search_student_personal_details_by_id
+### 7.获取学生个人竞赛信息
 
 接口地址：`http://hostname/user/student/details`  
 支持格式：`json`  
@@ -402,7 +417,6 @@ http://hostname/user/student/info/year/2020/keyword/机器人
 
 ```url
 http://hostname/user/student/details/id/20001
-
 http://hostname/user/student/details/id/20001/year/2000
 http://hostname/user/student/details/id/20001/award/一等奖
 http://hostname/user/student/details/id/20001/keyword/机器人
@@ -424,6 +438,11 @@ http://hostname/user/student/details/id/20001/keyword/机器人
 |   coede          |   string   |   返回码    |
 |   message        |   string   |   提示信息    |
 |   data       |   array  |   信息相关数组    |
+|   name       |   string   |   活动明长城    |
+|   year        |   string   |   活动举办年份    |
+|   status        |   string   |   活动状态（未开始、已开始、已结束）   |
+|   type        |   string   |   活动类别（线上比赛、线下比赛……）    |
+|   event        |   array   |   活动项目名称+奖项    |
 
 - JSON响应示例：
   - 正确示例：
@@ -490,7 +509,7 @@ http://hostname/user/student/details/id/20001/keyword/机器人
 
 <img src="https://s1.ax1x.com/2020/06/19/NuNjZF.png"/>
 
-### 获取学生竞赛/获奖视图
+### 8.获取学生竞赛/获奖视图
 
 接口地址：`http://hostname/user/student/view`  
 支持格式：`json`  
@@ -515,6 +534,8 @@ http://hostname/user/student/view/id/201/year/2020
 |   coede          |   string   |   返回码    |
 |   message        |   string   |   提示信息    |
 |   data       |   array  |   信息相关数组    |
+|   num_attendance        |   array  |   某年参赛月次数的数组    |
+|   num_awards        |   array |   某年获奖月次数的数组    |
 
 - JSON响应示例：
   - 正确示例：
@@ -549,7 +570,7 @@ http://hostname/user/student/view/id/201/year/2020
 
 ## 学校数据接口
 
-### 获取学校参与竞赛的数据 get_schools_competition_data_list**
+### 9.获取学校参与竞赛的数据
 
 <img src="https://s1.ax1x.com/2020/06/19/Nu2CA1.png"/>
 
@@ -576,6 +597,11 @@ http://hostname/user/school/info/name/中国传媒大学
 |   coede          |   string   |   返回码    |
 |   message        |   string   |   提示信息    |
 |   data       |   array  |   信息相关数组    |
+|  name       |   string   |   学校名称   |
+|   num_competition_attend        |   int   |   学校总参赛次数    |
+|  num_awards       |   int   |   学校总获奖次数    |
+|  num_award_students        |   int   |   学校总个人奖数量    |
+|   num_group_awards       |   int  |   学校总团体奖数量    |
 
 - JSON响应示例：
   - 正确示例：
@@ -620,7 +646,7 @@ http://hostname/user/school/info/name/中国传媒大学
 
 ## 平台数据接口
 
-### 获取平台历年数据  get_platform_total_data**
+### 10.获取平台历年数据
 
 <img src="https://s1.ax1x.com/2020/06/19/NuxGF0.png"/>
 
@@ -646,6 +672,13 @@ http://hostname/user/platform/info/year/2020
 |   coede          |   string   |   返回码    |
 |   message        |   string   |   提示信息    |
 |   data       |   array  |   平台信息相关数组    |
+|   num_competition        |   int  |   平台总竞赛活动数   |
+|   num_students       |   int   |   平台总参赛学生人数   |
+|   num_school        |   int    |   平台总参与学校数量    |
+|   num_male        |  int   |   平台总男生数    |
+|   num_female       |   int   |   平台总女生数    |
+|   num_award_male       |  int   |   平台总获奖男生数    |
+|   num_award_female        |  int    |   平台总获奖女生数    |
 
 - JSON响应示例：
   - 正确示例：
@@ -678,7 +711,7 @@ http://hostname/user/platform/info/year/2020
         }
     }
 
-### 获取年度对比数据 search_platform_data_between_years
+### 11.获取年度对比数据
 
 接口地址：`http://hostname/user/platform/compare`  
 支持格式：`json`  
@@ -703,6 +736,10 @@ http://hostname/user/platform/compare/year/2020/to/2019
 |   coede          |   string   |   返回码    |
 |   message        |   string   |   提示信息    |
 |   data       |   array  |   信息相关数组    |
+|   year      |   string   |   要进行对比的年份    |
+|   num_comp       |   int   |   当年总竞赛活动数量    |
+|   num_student       |   int   |   当年总参赛学生人数   |
+|   num_school       |   int   |   当年总参与学校数量    |
 
 - JSON响应示例：
   - 正确示例：
@@ -759,3 +796,4 @@ http://hostname/user/platform/compare/year/2020/to/2019
 |   50012       |    Other clients logged in  |      |
 |   50013       |    获取年度对比数据失败 |   获取平台年度对比数据    |
 |   50014       |    Token expired |      |
+|   50015      |   管理员退出登录失败|    用户退出登录  |
