@@ -4,6 +4,11 @@
 
 ```php  
 
+    //将用户信息插入admin表
+    public function insert_into_admin($req){
+        //$req->{"user_name":,"password":}
+    }
+
     /** 用户登录
     * @param  String  $username  用户名
     * @param  String  $pswd  密码
@@ -25,10 +30,6 @@
         //两个参数都是必须的
     }
 
-    //将竞赛信息插入admin表
-    public function insert_into_admin($req){
-        //$req->{"user_name":,"password":}
-    }
 ```
 
 # Dao_Competition
@@ -74,7 +75,7 @@
 
     //将学生参加活动信息插入student_detail表
     public function insert_into_student_detail($req){
-        //$req->{"student_id":,"year":,"num_attendance":,"num_awards":,"num_indi_awards":,"num_group_awards":,"attendance_detail":["competition_id":"","event":[],],"monthly_attendance":[],"monthly_award":[]}
+        //$req->{"student_id":,"year":,"num_attendance":,"num_awards":,"num_indi_awards":,"num_group_awards":,"attendance_detail":["competition_id":,"event":[]],"monthly_attendance":[],"monthly_award":[]}
     }
 
 
